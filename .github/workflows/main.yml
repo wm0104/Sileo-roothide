@@ -1,20 +1,26 @@
 on:
   push:
     branches:
-      - main
+      - test
 name: Build
 jobs:
   make:
     name: Build and Upload Sileo
-    runs-on: macos-12
+    runs-on: macos-15-intel
+    permissions:
+      contents: write
+    concurrency:
+      group: sileo-release-${{ github.ref }}
+      cancel-in-progress: false
     steps:
 
       - name: Checkout
         uses: actions/checkout@master
         with:
           submodules: recursive
-          token: ${{ secrets.SILEO_PAT }}
+          token: ${{ github.token }}
       - name: Import all certificates
+        if: ${{ false }}
         env:
           DEVELOPMENT_PASSWORD: ${{ secrets.DEVELOPMENT_PASSWORD }}
           DEVELOPMENT_CERTIFICATE: ${{ secrets.DEVELOPMENT_CERTIFICATE }}
@@ -60,33 +66,23 @@ jobs:
         run: |
           echo '/opt/procursus/sbin:/opt/procursus/bin' >> $GITHUB_PATH
 
-      - name: Select Correct Xcode (14.2)
+      - name: Select Correct Xcode (16.4)
         run: |
-          sudo xcode-select --switch /Applications/Xcode_14.2.app
+          sudo xcode-select --switch /Applications/Xcode_16.4.app
 
-      - name: Build Sileo Nightly (iphoneos-arm)
+      - name: Build Sileo (iphoneos-arm64e)
         run: |
-          make clean package NIGHTLY=1 DEBUG=0 ALL_BOOTSTRAPS=1
+          make clean package DEBUG=0 ALL_BOOTSTRAPS=1 SILEO_PLATFORM=iphoneos-arm64e
 
-      - name: Build Sileo Nightly (iphoneos-arm64)
-        run: |
-          make clean package NIGHTLY=1 DEBUG=0 ALL_BOOTSTRAPS=1 SILEO_PLATFORM=iphoneos-arm64
-
-      - name: Build Sileo Nightly (darwin-amd64)
-        run: |
-          make clean package NIGHTLY=1 DEBUG=0 AUTOMATION=1 SILEO_PLATFORM=darwin-amd64
-
-      - name: Build Sileo Nightly (darwin-arm64)
-        run: |
-          make clean package NIGHTLY=1 DEBUG=0 AUTOMATION=1 SILEO_PLATFORM=darwin-arm64
-      
       - name: Import GPG key
+        if: ${{ false }}
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v5
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
 
       - name: Push To Repo
+        if: ${{ false }}
         env:
           AMY_GITHUB_TOKEN: ${{ secrets.AMY_GITHUB }}
         run: |
@@ -101,3 +97,16 @@ jobs:
           git add . 
           git commit -m "build: sileo"
           git push
+
+      - name: Upload iphoneos-arm64e package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sileo-iphoneos-arm64e
+          path: packages/*_iphoneos-arm64e.deb
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: ${{ success() && github.repository == 'wm0104/Sileo-roothide' && github.ref == 'refs/heads/test' && github.event_name == 'push' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/publish-release.py

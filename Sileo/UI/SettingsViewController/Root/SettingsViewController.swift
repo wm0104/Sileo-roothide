@@ -99,7 +99,7 @@ extension SettingsViewController { // UITableViewDataSource
         case 1: // Themes
             return 5
         case 2:
-            return 11
+            return 12
         case 3: // About section
             return 5
         default:
@@ -175,43 +175,48 @@ extension SettingsViewController { // UITableViewDataSource
             let cell = SettingsSwitchTableViewCell()
             switch indexPath.row {
             case 0:
+                let cell = reusableCell(withStyle: .default, reuseIdentifier: "ArchiveEntry")
+                cell.textLabel?.text = String(localizationKey: "Archive_Title")
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            case 1:
                 cell.amyPogLabel.text = String(localizationKey: "Swipe_Actions")
                 cell.fallback = true
                 cell.defaultKey = "SwipeActions"
-            case 1:
+            case 2:
                 cell.amyPogLabel.text = String(localizationKey: "Show_Provisional")
                 cell.fallback = true
                 cell.defaultKey = "ShowProvisional"
-            case 2:
+            case 3:
                 cell.amyPogLabel.text = String(localizationKey: "iCloud_Profile")
                 cell.fallback = true
                 cell.defaultKey = "iCloudProfile"
-            case 3:
+            case 4:
                 cell.amyPogLabel.text = String(localizationKey: "Show_Ignored_Updates")
                 cell.fallback = true
                 cell.defaultKey = "ShowIgnoredUpdates"
-            case 4:
+            case 5:
                 cell.amyPogLabel.text = String(localizationKey: "Auto_Refresh_Sources")
                 cell.fallback = true
                 cell.defaultKey = "AutoRefreshSources"
-            case 5:
+            case 6:
                 cell.amyPogLabel.text = String(localizationKey: "Auto_Complete_Queue")
                 cell.defaultKey = "AutoComplete"
-            case 6:
+            case 7:
                 cell.amyPogLabel.text = String(localizationKey: "Show_Search_History")
                 cell.defaultKey = "ShowSearchHistory"
                 cell.fallback = true
-            case 7:
+            case 8:
                 cell.amyPogLabel.text = String(localizationKey: "Auto_Show_Queue")
                 cell.fallback = true
                 cell.defaultKey = "UpgradeAllAutoQueue"
-            case 8:
+            case 9:
                 cell.amyPogLabel.text = String(localizationKey: "Always_Show_Install_Log")
                 cell.defaultKey = "AlwaysShowLog"
-            case 9:
+            case 10:
                 cell.amyPogLabel.text = String(localizationKey: "Auto_Confirm_Upgrade_All_Shortcut")
                 cell.defaultKey = "AutoConfirmUpgradeAllShortcut"
-            case 10:
+            case 11:
                 cell.amyPogLabel.text = String(localizationKey: "Developer_Mode")
                 cell.fallback = false
                 cell.defaultKey = "DeveloperMode"
@@ -299,6 +304,10 @@ extension SettingsViewController { // UITableViewDataSource
                 menuSettingsVC.settingsSender = self
                 self.navigationController?.pushViewController(menuSettingsVC, animated: true)
             default: break
+            }
+        case 2:
+            if indexPath.row == 0 {
+                navigationController?.pushViewController(ConfigurationArchiveController(style: .grouped), animated: true)
             }
         case 3: // About section
             switch indexPath.row {

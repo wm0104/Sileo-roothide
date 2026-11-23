@@ -219,8 +219,15 @@ else
 all ::
 endif
 
+# Fixed-root archive helper: not setuid and never dispatches shell commands.
+ARCHIVE_CORE = ConfigurationArchive/ConfigurationSnapshot.swift ConfigurationArchive/ConfigurationDirectory.swift ConfigurationArchive/ConfigurationTree.swift
+$(SILEOTMP)/sileo-archive: $(ARCHIVE_CORE) ConfigurationArchive/ConfigurationBackupEngine.swift ConfigurationArchive/ArchiveWire.swift ConfigurationArchive/ArchiveHelper.swift ConfigurationArchive/ArchiveChannel.c ConfigurationArchive/ArchiveChannel.h ConfigurationArchive/HelperBridge.h
+	@mkdir -p $(SILEOTMP)
+	xcrun --sdk iphoneos clang -arch arm64 -miphoneos-version-min=15.0 -c ConfigurationArchive/ArchiveChannel.c -o $(SILEOTMP)/archive-channel.o
+	xcrun --sdk iphoneos swiftc -sdk `xcrun --sdk iphoneos --show-sdk-path` -target arm64-apple-ios15.0 -parse-as-library -O -import-objc-header ConfigurationArchive/HelperBridge.h -L. -lroothide $(ARCHIVE_CORE) ConfigurationArchive/ConfigurationBackupEngine.swift ConfigurationArchive/ArchiveWire.swift ConfigurationArchive/ArchiveHelper.swift $(SILEOTMP)/archive-channel.o -o $@
+
 ifneq ($(MAC),1)
-stage: patch-deps all
+stage: patch-deps all $(SILEOTMP)/sileo-archive
 	@echo $(BUILD_CONFIG)
 	@echo $(ARCH)
 	@echo $(PLATFORM)
@@ -249,6 +256,9 @@ stage: patch-deps all
 	@rm -rf $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/_CodeSignature
 	@rm -rf $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/Frameworks
 	@cp giveMeRoot/bin/giveMeRoot $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/
+	@cp $(SILEOTMP)/sileo-archive $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/
+	@chmod 0755 $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/sileo-archive
+	@$(TARGET_CODESIGN) -SgiveMeRoot/Entitlements.plist $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/sileo-archive
 	@$(TARGET_CODESIGN) -SSileo/Entitlements.entitlements $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/
 	@$(TARGET_CODESIGN) -SgiveMeRoot/Entitlements.plist $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/giveMeRoot
 	@chmod 4755 $(SILEO_STAGE_DIR)/$(PREFIX)/Applications/$(SILEO_APP)/giveMeRoot

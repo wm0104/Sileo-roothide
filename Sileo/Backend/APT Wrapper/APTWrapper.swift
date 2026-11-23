@@ -247,7 +247,10 @@ class APTWrapper {
 //        }
         #else
         DispatchQueue.global(qos: .default).async {
-            
+            guard let archiveToken = ArchiveActivity.shared.enter() else {
+                completionCallback(1, .back, false); return
+            }
+            defer { archiveToken.end() }
             DownloadManager.aptQueue.sync {
                 // wait for all tasks in the current apt queue to be completed
             }

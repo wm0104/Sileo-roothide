@@ -243,3 +243,30 @@
 "Whats_Collected" = "What's Collected";
 "Non_Identifying" = "Only package and non-identifying device information is collected.";
 "Privacy_Policy" = "Privacy Policy";
+
+// Configuration archive (new implementation)
+"Archive_Title" = "配置备份";
+"Archive_SelectFirst" = "请先选择本地备份目录";
+"Archive_Stale" = "目录授权已失效，请重新选择";
+"Archive_OK" = "好";
+"Archive_Cancel" = "取消";
+"Archive_Busy" = "APT 或软件源正在操作，请完成后重试。";
+"Archive_Agree" = "同意并创建";
+"Archive_Changed" = "目录身份已改变，请重新创建并确认";
+"Archive_NoData" = "备份服务没有返回数据";
+"Archive_Created" = "创建成功。";
+"Archive_Config" = "配置";
+"Archive_Sources" = "软件源";
+"Archive_All" = "全部";
+"Archive_Restore" = "恢复";
+"Archive_Restored" = "恢复成功。";
+"Archive_Select" = "选择本地目录…";
+"Archive_Working" = "正在操作…";
+"Archive_Create" = "创建配置备份";
+"Archive_Version" = "需要 iOS 14 或更新版本";
+"Archive_Categories" = "配置与软件源";
+"Archive_Records" = "有效备份";
+
+"Archive_SharedConfirmTitle" = "创建并仅保留 Sileo/Irisin 两份？";
+"Archive_RestoreTitle" = "整目录恢复%@？";
+"Archive_CreateTitle" = "创建备份？";

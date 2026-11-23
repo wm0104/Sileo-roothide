@@ -98,8 +98,30 @@ final class RepoManager {
                 URL(string: "https://repo.chariz.com")!,
             ])
         }
+        if !UserDefaults.standard.bool(forKey: "Sileo.WM0104DefaultRepo") {
+            let url = URL(string: "https://wm0104.github.io/repo/")!
+            addRepos(with: [url])
+            if hasRepo(with: url) {
+                UserDefaults.standard.set(true, forKey: "Sileo.WM0104DefaultRepo")
+            }
+        }
     }
     
+    // Called only by the archive worker while its exclusive activity token is held.
+    func reloadAfterArchive() {
+        repoListLock.wait(); repoList.removeAll(); repoListLock.signal()
+        let directories = [CommandPath.sourcesListD, CommandPath.alternativeSources]
+        for path in directories {
+            for item in URL(fileURLWithPath: path).implicitContents {
+                if item.pathExtension == "list" { _parseListFile(at: item) }
+                else if item.pathExtension == "sources" { _parseSourcesFile(at: item) }
+            }
+        }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: PackageListManager.reloadNotification, object: nil)
+        }
+    }
+
     private func normalizeURL(_ url: URL) -> URL? {
         var normalizedStr = url.absoluteString
         if normalizedStr.last != "/" {
@@ -109,6 +131,8 @@ final class RepoManager {
     }
 
     @discardableResult func addRepos(with urls: [URL]) -> [Repo] {
+        guard let archiveToken = ArchiveActivity.shared.enter() else { return [] }
+        defer { archiveToken.end() }
         var repos = [Repo]()
         func handleDistRepo(_ url: URL) -> Bool {
             let host = url.host?.lowercased()
@@ -197,6 +221,8 @@ final class RepoManager {
     }
 
     public func addDistRepo(url: URL, suites: String, components: String) -> Repo? {
+        guard let archiveToken = ArchiveActivity.shared.enter() else { return nil }
+        defer { archiveToken.end() }
         NSLog("SileoLog: addDistRepo \(url) : \(suites) : \(components)")
 
         assert((url.host?.count ?? 0) > 0)
@@ -249,6 +275,8 @@ final class RepoManager {
     }
 
     func remove(repos: [Repo]) {
+        guard let archiveToken = ArchiveActivity.shared.enter() else { return }
+        defer { archiveToken.end() }
         repoListLock.wait()
         repoList.removeAll { repos.contains($0) }
         repoListLock.signal()
@@ -1284,10 +1312,16 @@ final class RepoManager {
     }
 
     func update(force: Bool, forceReload: Bool, isBackground: Bool, repos: [Repo] = RepoManager.shared.repoList, completion: @escaping (Bool, NSAttributedString) -> Void) {
+        guard let archiveToken = ArchiveActivity.shared.enter() else {
+            DispatchQueue.main.async { completion(true, NSAttributedString(string: String(localizationKey: "Archive_Busy"))) }; return
+        }
+        let archiveCompletion: (Bool, NSAttributedString) -> Void = { failed, output in
+            archiveToken.end(); completion(failed, output)
+        }
         DispatchQueue.global(qos: .userInitiated).async {
             PackageListManager.shared.initWait()
 //            DispatchQueue.main.async {
-                self._update(force: force, forceReload: forceReload, isBackground: isBackground, repos: repos, completion: completion)
+                self._update(force: force, forceReload: forceReload, isBackground: isBackground, repos: repos, completion: archiveCompletion)
 //            }
         }
     }
@@ -1308,6 +1342,11 @@ final class RepoManager {
     }
     
     public func parseListFile(at url: URL, isImporting: Bool = false) {
+        guard let token = ArchiveActivity.shared.enter() else { return }
+        defer { token.end() }
+        _parseListFile(at: url, isImporting: isImporting)
+    }
+    private func _parseListFile(at url: URL, isImporting: Bool = false) {
         // if we're importing, then it doesn't matter if the file is a cydia.list
         // otherwise, don't parse the file
         if Jailbreak.bootstrap == .procursus, !isImporting {
@@ -1334,6 +1373,11 @@ final class RepoManager {
     }
 
     public func parsePlainTextFile(at url: URL) {
+        guard let token = ArchiveActivity.shared.enter() else { return }
+        defer { token.end() }
+        _parsePlainTextFile(at: url)
+    }
+    private func _parsePlainTextFile(at url: URL) {
         guard let rawSources = try? String(contentsOf: url) else {
             return
         }
@@ -1353,6 +1397,11 @@ final class RepoManager {
     }
     
     public func parseSourcesFile(at url: URL) {
+        guard let token = ArchiveActivity.shared.enter() else { return }
+        defer { token.end() }
+        _parseSourcesFile(at: url)
+    }
+    private func _parseSourcesFile(at url: URL) {
         guard let rawSources = try? String(contentsOf: url) else {
             NSLog("SileoLog: [Sileo] \(#function): couldn't get rawSources. we are out of here!")
             return
@@ -1386,7 +1435,10 @@ final class RepoManager {
     }
 
     func writeListToFile() {
+        guard let archiveToken = ArchiveActivity.shared.enter() else { return }
+        defer { archiveToken.end() }
         repoListLock.wait()
+        defer { repoListLock.signal() }
         
         if Jailbreak.bootstrap != .elucubratus || Jailbreak.bootstrap != .unc0ver {
             var rawRepoList = ""
@@ -1453,7 +1505,6 @@ final class RepoManager {
             try? rawRepoList.write(to: cydiaList, atomically: true, encoding: .utf8)
         }
         
-        repoListLock.signal()
     }
     
     public func getUniqueName(repo: Repo) -> String {

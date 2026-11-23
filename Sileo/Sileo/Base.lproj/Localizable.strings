@@ -244,3 +244,30 @@
 "Whats_Collected" = "What's Collected";
 "Non_Identifying" = "Only package and non-identifying device information is collected.";
 "Privacy_Policy" = "Privacy Policy";
+
+// Configuration archive (new implementation)
+"Archive_Title" = "Configuration Backup";
+"Archive_SelectFirst" = "Choose a local backup folder first.";
+"Archive_Stale" = "Folder authorization expired. Select it again.";
+"Archive_OK" = "OK";
+"Archive_Cancel" = "Cancel";
+"Archive_Busy" = "APT or sources are busy. Try again when finished.";
+"Archive_Agree" = "Agree and Create";
+"Archive_Changed" = "Folder identity changed. Create again to confirm.";
+"Archive_NoData" = "Backup service returned no data.";
+"Archive_Created" = "Backup created.";
+"Archive_Config" = "Configuration";
+"Archive_Sources" = "Sources";
+"Archive_All" = "All";
+"Archive_Restore" = "Restore";
+"Archive_Restored" = "Restore succeeded.";
+"Archive_Select" = "Choose Local Folder…";
+"Archive_Working" = "Working…";
+"Archive_Create" = "Create Configuration Backup";
+"Archive_Version" = "Requires iOS 14 or later.";
+"Archive_Categories" = "Configuration and Sources";
+"Archive_Records" = "Valid Backups";
+
+"Archive_SharedConfirmTitle" = "Create and keep only two Sileo/Irisin backups?";
+"Archive_RestoreTitle" = "Replace entire %@ directories?";
+"Archive_CreateTitle" = "Create backup?";

@@ -990,6 +990,30 @@
 		FBD910D024E06ABE00767541 /* SettingsColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD910CE24E0699000767541 /* SettingsColorTableViewCell.swift */; };
 		FBDE129B24A91A2800138A7E /* PaymentAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDE129A24A91A2800138A7E /* PaymentAuthenticator.swift */; };
 		FBDE129C24A91ADC00138A7E /* PaymentAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDE129A24A91A2800138A7E /* PaymentAuthenticator.swift */; };
+		5F9DA3AAE406AEDE25A060AF /* ConfigurationSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA46FB71546505ECDB3E14 /* ConfigurationSnapshot.swift */; };
+		A4B25D09399592C520C9A16F /* ConfigurationSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA46FB71546505ECDB3E14 /* ConfigurationSnapshot.swift */; };
+		7ECD6A9FF40169B627F6EE02 /* ConfigurationSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA46FB71546505ECDB3E14 /* ConfigurationSnapshot.swift */; };
+		B8BEBD85D1C5651E55B52079 /* ConfigurationDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261456CFCB2AA28369F7D498 /* ConfigurationDirectory.swift */; };
+		652511DF61E6518ECF7BC6FD /* ConfigurationDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261456CFCB2AA28369F7D498 /* ConfigurationDirectory.swift */; };
+		C48161B7BC7BBA73A192B92B /* ConfigurationDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261456CFCB2AA28369F7D498 /* ConfigurationDirectory.swift */; };
+		D6874DBF5D33F0678CA3C89D /* ConfigurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE12E5A2C53B0572E15EAFC /* ConfigurationTree.swift */; };
+		8464C9851862B8EE02853751 /* ConfigurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE12E5A2C53B0572E15EAFC /* ConfigurationTree.swift */; };
+		E894CB5406735C5680609E5C /* ConfigurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE12E5A2C53B0572E15EAFC /* ConfigurationTree.swift */; };
+		4343073420A6BF2C33182292 /* ConfigurationBackupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D995B629F8C31F247BD469 /* ConfigurationBackupStorage.swift */; };
+		1769FA754A5F204EA288FA37 /* ConfigurationBackupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D995B629F8C31F247BD469 /* ConfigurationBackupStorage.swift */; };
+		71E2B9212151348B8275CFE6 /* ConfigurationBackupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D995B629F8C31F247BD469 /* ConfigurationBackupStorage.swift */; };
+		2FF8A4556F078C505DC09E66 /* ArchiveWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2351FD911B521B2AC78D38 /* ArchiveWire.swift */; };
+		C51654BBF81344D2DB68B790 /* ArchiveWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2351FD911B521B2AC78D38 /* ArchiveWire.swift */; };
+		411DCB950884708702B1703F /* ArchiveWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2351FD911B521B2AC78D38 /* ArchiveWire.swift */; };
+		D8BBD4D22C4661C55E27D9C1 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0250F9A973C2F97061B0910 /* ArchiveService.swift */; };
+		69A2E8D1A7577398D801DB9C /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0250F9A973C2F97061B0910 /* ArchiveService.swift */; };
+		6852C9E03F2C4FF7BD69208D /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0250F9A973C2F97061B0910 /* ArchiveService.swift */; };
+		8F72007BEAAA325F2C2A3F1D /* ConfigurationArchiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E5D17CF848ACF690E422 /* ConfigurationArchiveController.swift */; };
+		A56DE38F93A05BEBF6C5A4F0 /* ConfigurationArchiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E5D17CF848ACF690E422 /* ConfigurationArchiveController.swift */; };
+		65FB5639D982407F8CDE410E /* ConfigurationArchiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569E5D17CF848ACF690E422 /* ConfigurationArchiveController.swift */; };
+		A2206C3AAC41B53793068D25 /* ArchiveChannel.c in Sources */ = {isa = PBXBuildFile; fileRef = 33D39FB77857623035974935 /* ArchiveChannel.c */; };
+		9AA0D0DDE968DFC6F4FA4057 /* ArchiveChannel.c in Sources */ = {isa = PBXBuildFile; fileRef = 33D39FB77857623035974935 /* ArchiveChannel.c */; };
+		F491FFAFF21AA5DE70892A27 /* ArchiveChannel.c in Sources */ = {isa = PBXBuildFile; fileRef = 33D39FB77857623035974935 /* ArchiveChannel.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1654,6 +1678,14 @@
 		FBBD0037240C31B3008E11B2 /* NewsArticlesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsArticlesViewController.swift; sourceTree = "<group>"; };
 		FBD910CE24E0699000767541 /* SettingsColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsColorTableViewCell.swift; sourceTree = "<group>"; };
 		FBDE129A24A91A2800138A7E /* PaymentAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAuthenticator.swift; sourceTree = "<group>"; };
+		18FA46FB71546505ECDB3E14 /* ConfigurationSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ConfigurationSnapshot.swift; sourceTree = SOURCE_ROOT; };
+		261456CFCB2AA28369F7D498 /* ConfigurationDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ConfigurationDirectory.swift; sourceTree = SOURCE_ROOT; };
+		4CE12E5A2C53B0572E15EAFC /* ConfigurationTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ConfigurationTree.swift; sourceTree = SOURCE_ROOT; };
+		B2D995B629F8C31F247BD469 /* ConfigurationBackupStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ConfigurationBackupStorage.swift; sourceTree = SOURCE_ROOT; };
+		FC2351FD911B521B2AC78D38 /* ArchiveWire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ArchiveWire.swift; sourceTree = SOURCE_ROOT; };
+		F0250F9A973C2F97061B0910 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ArchiveService.swift; sourceTree = SOURCE_ROOT; };
+		4569E5D17CF848ACF690E422 /* ConfigurationArchiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationArchive/ConfigurationArchiveController.swift; sourceTree = SOURCE_ROOT; };
+		33D39FB77857623035974935 /* ArchiveChannel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConfigurationArchive/ArchiveChannel.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4197,6 +4229,14 @@
 				E12818CF26BBFAA500D2553B /* NewsArticleCollectionViewCell.swift in Sources */,
 				E12818D126BBFAA500D2553B /* PaymentAuthenticator.swift in Sources */,
 				E12818D226BBFAA500D2553B /* RootWrapper.swift in Sources */,
+				5F9DA3AAE406AEDE25A060AF /* ConfigurationSnapshot.swift in Sources */,
+				B8BEBD85D1C5651E55B52079 /* ConfigurationDirectory.swift in Sources */,
+				D6874DBF5D33F0678CA3C89D /* ConfigurationTree.swift in Sources */,
+				4343073420A6BF2C33182292 /* ConfigurationBackupStorage.swift in Sources */,
+				2FF8A4556F078C505DC09E66 /* ArchiveWire.swift in Sources */,
+				D8BBD4D22C4661C55E27D9C1 /* ArchiveService.swift in Sources */,
+				8F72007BEAAA325F2C2A3F1D /* ConfigurationArchiveController.swift in Sources */,
+				A2206C3AAC41B53793068D25 /* ArchiveChannel.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4403,6 +4443,14 @@
 				F139D0DC22EA9209007F5C0D /* ZKSwizzle.m in Sources */,
 				FBBD003B240C31B4008E11B2 /* NewsArticleCollectionViewCell.swift in Sources */,
 				F139D11B22EA9209007F5C0D /* RootWrapper.swift in Sources */,
+				A4B25D09399592C520C9A16F /* ConfigurationSnapshot.swift in Sources */,
+				652511DF61E6518ECF7BC6FD /* ConfigurationDirectory.swift in Sources */,
+				8464C9851862B8EE02853751 /* ConfigurationTree.swift in Sources */,
+				1769FA754A5F204EA288FA37 /* ConfigurationBackupStorage.swift in Sources */,
+				C51654BBF81344D2DB68B790 /* ArchiveWire.swift in Sources */,
+				69A2E8D1A7577398D801DB9C /* ArchiveService.swift in Sources */,
+				A56DE38F93A05BEBF6C5A4F0 /* ConfigurationArchiveController.swift in Sources */,
+				9AA0D0DDE968DFC6F4FA4057 /* ArchiveChannel.c in Sources */,
 				E163BE9E28896E46004A20CC /* dpkgversion.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4597,6 +4645,14 @@
 				370531E0282059BB00B67743 /* ThemesSectionViewController.swift in Sources */,
 				FBDE129B24A91A2800138A7E /* PaymentAuthenticator.swift in Sources */,
 				F170DD7D22CFE79800196FDA /* RootWrapper.swift in Sources */,
+				7ECD6A9FF40169B627F6EE02 /* ConfigurationSnapshot.swift in Sources */,
+				C48161B7BC7BBA73A192B92B /* ConfigurationDirectory.swift in Sources */,
+				E894CB5406735C5680609E5C /* ConfigurationTree.swift in Sources */,
+				71E2B9212151348B8275CFE6 /* ConfigurationBackupStorage.swift in Sources */,
+				411DCB950884708702B1703F /* ArchiveWire.swift in Sources */,
+				6852C9E03F2C4FF7BD69208D /* ArchiveService.swift in Sources */,
+				65FB5639D982407F8CDE410E /* ConfigurationArchiveController.swift in Sources */,
+				F491FFAFF21AA5DE70892A27 /* ArchiveChannel.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

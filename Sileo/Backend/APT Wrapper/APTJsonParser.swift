@@ -159,6 +159,10 @@ struct ErrorParserWrapper: Decodable {
 extension APTWrapper {
     // APT syntax: a- = remove a; b = install b
     public class func operationList(installList: Set<DownloadPackage>, removeList: Set<DownloadPackage>) throws -> APTOutput {
+        guard let archiveToken = ArchiveActivity.shared.enter() else {
+            throw ConfigurationBackupError(String(localizationKey: "Archive_Busy"))
+        }
+        defer { archiveToken.end() }
 //        Thread.callStackSymbols.forEach{NSLog("SileoLog: operationList callstack=\($0)")}
 
         // Error check stuff
